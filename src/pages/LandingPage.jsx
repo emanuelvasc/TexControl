@@ -2,66 +2,18 @@ import Icon from "../components/Icon";
 import { ICONS } from "../constants/icons";
 
 const LandingPage = ({ onLogin }) => {
+  // Função para rolar até a seção de recursos
+  const scrollToResources = () => {
+    const resourcesSection = document.getElementById("recursos");
+    if (resourcesSection) {
+      resourcesSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div>
-      {/* Topbar */}
-      <div className="topbar">
-        <div className="topbar-left">
-          <a href="#">
-            <Icon d={ICONS.phone} size={12} /> (11) 99999-0000
-          </a>
-          <a href="#">
-            <Icon d={ICONS.mail} size={12} /> contato@texcontrol.com.br
-          </a>
-        </div>
-        <div className="topbar-right">
-          <div className="topbar-social">
-            <a href="#">
-              <Icon d={ICONS.instagram} size={14} />
-            </a>
-            <a href="#">
-              <Icon d={ICONS.linkedin} size={14} />
-            </a>
-          </div>
-          <div className="topbar-bell">
-            <Icon d={ICONS.bell} size={16} />
-            <span className="topbar-badge">3</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Navbar */}
-      <nav className="navbar">
-        <a href="#" className="nav-logo">
-          <div className="logo-mark">T</div>
-          TEX<span>CONTROL</span>
-        </a>
-        <ul className="nav-links">
-          <li>
-            <a href="#">Início</a>
-          </li>
-          <li>
-            <a href="#">Recursos</a>
-          </li>
-          <li>
-            <a href="#">Produção</a>
-          </li>
-          <li>
-            <a href="#">Sobre</a>
-          </li>
-          <li>
-            <a href="#">Contato</a>
-          </li>
-        </ul>
-        <div className="nav-actions">
-          <button className="btn-nav-login" onClick={onLogin}>
-            Entrar
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="hero">
+      {/* Hero - INÍCIO */}
+      <section id="inicio" className="hero">
         <div className="hero-bg" />
         <div className="hero-content">
           <div className="hero-left">
@@ -80,7 +32,9 @@ const LandingPage = ({ onLogin }) => {
               <button className="btn-primary" onClick={onLogin}>
                 Entrar no sistema →
               </button>
-              <button className="btn-secondary">Explorar recursos</button>
+              <button className="btn-secondary" onClick={scrollToResources}>
+                Explorar recursos
+              </button>
             </div>
           </div>
           <div className="hero-card">
@@ -115,8 +69,8 @@ const LandingPage = ({ onLogin }) => {
         </div>
       </section>
 
-      {/* Features */}
-      <div className="features">
+      {/* Features - RECURSOS (adicione o id) */}
+      <section id="recursos" className="features">
         <h2 className="section-title">
           Sistema completo
           <br />
@@ -151,10 +105,64 @@ const LandingPage = ({ onLogin }) => {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Footer */}
-      <footer>
+      {/* Seção PRODUÇÃO */}
+      <section id="producao" className="features" style={{ paddingTop: 0 }}>
+        <h2 className="section-title">
+          Produção<span>Inteligente</span>
+        </h2>
+        <div className="features-grid">
+          <div className="feature-block">
+            <div className="feature-name">Linhas de Produção</div>
+            <p className="feature-desc">
+              Acompanhamento em tempo real da eficiência de cada linha.
+            </p>
+          </div>
+          <div className="feature-block">
+            <div className="feature-name">OEE - Eficiência Global</div>
+            <p className="feature-desc">
+              Métricas completas de disponibilidade, performance e qualidade.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Seção SOBRE */}
+      <section id="sobre" className="features" style={{ paddingTop: 0 }}>
+        <h2 className="section-title">
+          Sobre a<span>TEXCONTROL</span>
+        </h2>
+        <div className="features-grid">
+          <div className="feature-block">
+            <div className="feature-name">Nossa Missão</div>
+            <p className="feature-desc">
+              Transformar a gestão de confecções com tecnologia e inovação.
+            </p>
+          </div>
+          <div className="feature-block">
+            <div className="feature-name">Nossa Visão</div>
+            <p className="feature-desc">
+              Ser referência em gestão industrial no setor têxtil.
+            </p>
+          </div>
+          <div className="feature-block">
+            <div className="feature-name">Nossos Valores</div>
+            <p className="feature-desc">
+              Inovação, transparência e compromisso com resultados.
+            </p>
+          </div>
+          <div className="feature-block">
+            <div className="feature-name">+7 anos</div>
+            <p className="feature-desc">
+              De experiência transformando confecções.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer - CONTATO */}
+      <footer id="contato">
         <div className="footer-grid">
           <div>
             <div className="footer-logo-wrap">
@@ -192,6 +200,20 @@ const LandingPage = ({ onLogin }) => {
               </li>
               <li>
                 <a href="#">Contato</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div className="footer-col-title">Contato</div>
+            <ul className="footer-links">
+              <li>
+                <a href="#">(11) 99999-0000</a>
+              </li>
+              <li>
+                <a href="#">contato@texcontrol.com.br</a>
+              </li>
+              <li>
+                <a href="#">São Paulo, SP</a>
               </li>
             </ul>
           </div>

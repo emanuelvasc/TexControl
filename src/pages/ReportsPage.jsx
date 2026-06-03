@@ -11,7 +11,6 @@ const ReportsPage = () => {
       name: "Produção Mensal",
       date: "Maio 2025",
       size: "2.4 MB",
-      icon: "📊",
       type: "Produção",
       author: "Admin",
       downloads: 45,
@@ -21,7 +20,6 @@ const ReportsPage = () => {
       name: "Eficiência por Linha",
       date: "Semana 21",
       size: "1.8 MB",
-      icon: "📈",
       type: "Produção",
       author: "Admin",
       downloads: 32,
@@ -31,7 +29,6 @@ const ReportsPage = () => {
       name: "Pedidos por Cliente",
       date: "Q1 2025",
       size: "3.1 MB",
-      icon: "📋",
       type: "Pedidos",
       author: "Admin",
       downloads: 28,
@@ -41,7 +38,6 @@ const ReportsPage = () => {
       name: "Inventário Geral",
       date: "Atualizado",
       size: "856 KB",
-      icon: "📦",
       type: "Estoque",
       author: "Admin",
       downloads: 56,
@@ -51,7 +47,6 @@ const ReportsPage = () => {
       name: "Análise Financeira",
       date: "Maio 2025",
       size: "1.2 MB",
-      icon: "💰",
       type: "Financeiro",
       author: "Admin",
       downloads: 41,
@@ -61,7 +56,6 @@ const ReportsPage = () => {
       name: "Produtividade",
       date: "Maio 2025",
       size: "945 KB",
-      icon: "⚡",
       type: "Produção",
       author: "Admin",
       downloads: 23,
@@ -130,7 +124,6 @@ const ReportsPage = () => {
   };
 
   const handleDownload = (report) => {
-    // Incrementa o contador de downloads
     setReports(
       reports.map((r) =>
         r.id === report.id ? { ...r, downloads: r.downloads + 1 } : r,
@@ -147,7 +140,6 @@ const ReportsPage = () => {
   const avgSize =
     reports.length > 0 ? (totalSize / reports.length).toFixed(1) : 0;
 
-  // Função para pegar a cor do tipo
   const getTypeColor = (type) => {
     switch (type) {
       case "Produção":
@@ -163,9 +155,23 @@ const ReportsPage = () => {
     }
   };
 
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case "Produção":
+        return ICONS.production;
+      case "Financeiro":
+        return ICONS.dollar;
+      case "Pedidos":
+        return ICONS.orders;
+      case "Estoque":
+        return ICONS.stock;
+      default:
+        return ICONS.file;
+    }
+  };
+
   return (
     <div className="page-reports">
-      {/* Notificação Toast */}
       {notification.show && (
         <div className={`toast-notification ${notification.type}`}>
           {notification.message}
@@ -185,7 +191,6 @@ const ReportsPage = () => {
         onSave={handleSaveReport}
       />
 
-      {/* Modal de Detalhes */}
       {selectedReport && (
         <div className="modal-overlay" onClick={() => setSelectedReport(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -199,7 +204,9 @@ const ReportsPage = () => {
               </button>
             </div>
             <div className="report-details">
-              <div className="detail-icon">{selectedReport.icon}</div>
+              <div className="detail-icon">
+                <Icon d={getTypeIcon(selectedReport.type)} size={48} color={getTypeColor(selectedReport.type)} />
+              </div>
               <h3>{selectedReport.name}</h3>
               <div className="detail-row">
                 <span>Tipo:</span>
@@ -242,7 +249,6 @@ const ReportsPage = () => {
         </div>
       )}
 
-      {/* Header */}
       <div className="page-header">
         <div>
           <h1 className="page-title">Relatórios</h1>
@@ -256,21 +262,27 @@ const ReportsPage = () => {
       {/* Stats Cards */}
       <div className="stats-cards">
         <div className="stat-card">
-          <div className="stat-icon">📄</div>
+          <div className="stat-icon">
+            <Icon d={ICONS.file} size={28} color="var(--orange)" />
+          </div>
           <div className="stat-info">
             <span className="stat-number">{reports.length}</span>
             <span className="stat-label">Total Relatórios</span>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">📥</div>
+          <div className="stat-icon">
+            <Icon d={ICONS.download} size={28} color="var(--orange)" />
+          </div>
           <div className="stat-info">
             <span className="stat-number">{totalDownloads}</span>
             <span className="stat-label">Total Downloads</span>
           </div>
         </div>
         <div className="stat-card">
-          <div className="stat-icon">💾</div>
+          <div className="stat-icon">
+            <Icon d={ICONS.hardDrive} size={28} color="var(--orange)" />
+          </div>
           <div className="stat-info">
             <span className="stat-number">{avgSize} MB</span>
             <span className="stat-label">Tamanho Médio</span>
@@ -278,15 +290,19 @@ const ReportsPage = () => {
         </div>
       </div>
 
-      {/* Lista de Relatórios */}
+      {/* Lista de Relatórios - SEM EMOJIS */}
       <div className="reports-list-container">
         {reports.map((report) => (
           <div className="report-card" key={report.id}>
-            <div className="report-card-icon">{report.icon}</div>
+            <div className="report-card-icon">
+              <Icon d={getTypeIcon(report.type)} size={32} color={getTypeColor(report.type)} />
+            </div>
             <div className="report-card-content">
               <h3>{report.name}</h3>
               <div className="report-card-meta">
-                <span className="meta-date">📅 {report.date}</span>
+                <span className="meta-date">
+                  <Icon d={ICONS.calendar} size={12} /> {report.date}
+                </span>
                 <span
                   className="meta-type"
                   style={{
@@ -294,10 +310,14 @@ const ReportsPage = () => {
                     color: getTypeColor(report.type),
                   }}
                 >
-                  {report.type}
+                  <Icon d={getTypeIcon(report.type)} size={10} /> {report.type}
                 </span>
-                <span className="meta-size">💾 {report.size}</span>
-                <span className="meta-downloads">📥 {report.downloads}</span>
+                <span className="meta-size">
+                  <Icon d={ICONS.hardDrive} size={12} /> {report.size}
+                </span>
+                <span className="meta-downloads">
+                  <Icon d={ICONS.download} size={12} /> {report.downloads}
+                </span>
               </div>
             </div>
             <div className="report-card-actions">
@@ -313,14 +333,14 @@ const ReportsPage = () => {
                 onClick={() => handleDownload(report)}
                 title="Baixar relatório"
               >
-                <Icon d={ICONS.arrowRight} size={18} />
+                <Icon d={ICONS.download} size={18} />
               </button>
               <button
                 className="action-btn delete"
                 onClick={() => handleDeleteReport(report.id, report.name)}
                 title="Remover relatório"
               >
-                ✕
+                <Icon d={ICONS.trash} size={18} />
               </button>
             </div>
           </div>
