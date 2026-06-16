@@ -1,16 +1,6 @@
-// src/lib/supabase.js
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-// Debug - veja no console do navegador se as variáveis estão carregando
-console.log('Supabase URL:', supabaseUrl);
-console.log('Supabase Key:', supabaseAnonKey ? 'Carregada' : 'NÃO CARREGADA');
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('❌ Variáveis de ambiente do Supabase não encontradas!');
-  console.error('Verifique se o arquivo .env existe na raiz do projeto');
-}
+const supabaseUrl = 'https://obenvmdnnaimpqagsqjw.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9iZW52bWRubmFpbXBxYWdzcWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjc5MjIsImV4cCI6MjA5NjYwMzkyMn0.6kS8yD4oCxnUXttlOBTUW7qEx0tlhW8eB2Fhk4pn_QI';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
